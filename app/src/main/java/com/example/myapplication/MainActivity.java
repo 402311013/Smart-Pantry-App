@@ -11,23 +11,23 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // Connect this activity to the main layout file
+        // main layout setup
         setContentView(R.layout.activity_main);
 
-        // Grab button references from the layout
+        // get buttons from layout
         Button btnPantry = findViewById(R.id.btnPantry);
         Button btnRecipes = findViewById(R.id.btnRecipes);
         Button btnSettings = findViewById(R.id.btnSettings);
 
-        // Go to pantry screen
+        // open pantry
         btnPantry.setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, PantryActivity.class)));
 
-        // Go to suggested recipes screen
+        // open suggested recipes
         btnRecipes.setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, SuggestedRecipesActivity.class)));
 
-        // Go to settings screen
+        // open settings
         btnSettings.setOnClickListener(v ->
                 startActivity(new Intent(MainActivity.this, SettingsActivity.class)));
     }
