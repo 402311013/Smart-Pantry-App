@@ -13,7 +13,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
@@ -22,6 +21,7 @@ public class PantryActivity extends AppCompatActivity {
 
     private List<PantryItem> pantryList;
     private PantryAdapter adapter;
+    private DatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,13 +29,15 @@ public class PantryActivity extends AppCompatActivity {
         // set layout for pantry screen
         setContentView(R.layout.activity_pantry);
 
-        // load up initial ingredients list
-        initSampleData();
+        // set up db helper and load items from database
+        dbHelper = new DatabaseHelper(this);
+        pantryList = dbHelper.getAllPantryItems();
 
         // set up recycler view
         RecyclerView rvPantryList = findViewById(R.id.rvPantryList);
         rvPantryList.setLayoutManager(new LinearLayoutManager(this));
 
+        // adapter setup with edit and delete callbacks
         adapter = new PantryAdapter(pantryList, new PantryAdapter.OnItemClickListener() {
             @Override
             public void onEdit(int position) {
@@ -44,6 +46,9 @@ public class PantryActivity extends AppCompatActivity {
 
             @Override
             public void onDelete(int position) {
+                // delete from db first then update list
+                PantryItem itemToDelete = pantryList.get(position);
+                dbHelper.deletePantryItem(itemToDelete.getId());
                 pantryList.remove(position);
                 adapter.notifyItemRemoved(position);
                 Toast.makeText(PantryActivity.this, "Item deleted", Toast.LENGTH_SHORT).show();
@@ -60,17 +65,7 @@ public class PantryActivity extends AppCompatActivity {
         btnBack.setOnClickListener(v -> finish());
     }
 
-    // initial ingredients list
-    private void initSampleData() {
-        pantryList = new ArrayList<>();
-        pantryList.add(new PantryItem("Basmati Rice", "1", "kg", "2025-12-31"));
-        pantryList.add(new PantryItem("Turmeric Powder", "1", "pack", "2026-06-30"));
-        pantryList.add(new PantryItem("Chilli Powder", "1", "pack", "2026-06-30"));
-        pantryList.add(new PantryItem("Ghee", "1", "jar", "2025-09-15"));
-        pantryList.add(new PantryItem("Curry Powder", "1", "pack", "2026-01-20"));
-    }
-
-    // dialog to add new item
+    // popup dialog to add a new ingredient
     private void showAddDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Add Ingredient");
@@ -107,7 +102,10 @@ public class PantryActivity extends AppCompatActivity {
             String expiry = etExpiry.getText().toString().trim();
 
             if (!TextUtils.isEmpty(name)) {
-                pantryList.add(new PantryItem(name, qty, unit, expiry));
+                // save new item to db and update screen
+                PantryItem newItem = new PantryItem(name, qty, unit, expiry);
+                dbHelper.addPantryItem(newItem);
+                pantryList.add(newItem);
                 adapter.notifyItemInserted(pantryList.size() - 1);
                 Toast.makeText(this, "Added " + name, Toast.LENGTH_SHORT).show();
             } else {
@@ -119,7 +117,7 @@ public class PantryActivity extends AppCompatActivity {
         builder.show();
     }
 
-    // dialog to edit item
+    // popup dialog to edit existing ingredient
     private void showEditDialog(int position) {
         PantryItem currentItem = pantryList.get(position);
 
@@ -161,10 +159,12 @@ public class PantryActivity extends AppCompatActivity {
             String expiry = etExpiry.getText().toString().trim();
 
             if (!TextUtils.isEmpty(name)) {
+                // update item values and save changes to db
                 currentItem.setName(name);
                 currentItem.setQuantity(qty);
                 currentItem.setUnit(unit);
                 currentItem.setExpiryDate(expiry);
+                dbHelper.updatePantryItem(currentItem);
                 adapter.notifyItemChanged(position);
                 Toast.makeText(this, "Updated " + name, Toast.LENGTH_SHORT).show();
             } else {
@@ -176,7 +176,7 @@ public class PantryActivity extends AppCompatActivity {
         builder.show();
     }
 
-    // helper to show date picker dialog
+    // helper to display date picker
     private void showDatePicker(EditText targetEditText) {
         Calendar cal = Calendar.getInstance();
         DatePickerDialog datePicker = new DatePickerDialog(this,

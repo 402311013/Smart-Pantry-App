@@ -1,21 +1,38 @@
 package com.example.myapplication;
 
-// simple item model to hold pantry info
+// model class to hold ingredient details
 public class PantryItem {
+    private long id;
     private String name;
     private String quantity;
     private String unit;
     private String expiryDate;
 
-    public PantryItem(String name, String quantity, String unit, String expiryDate) {
+    // constructor with db id
+    public PantryItem(long id, String name, String quantity, String unit, String expiryDate) {
+        this.id = id;
         this.name = name;
         this.quantity = quantity;
         this.unit = unit;
         this.expiryDate = expiryDate;
     }
 
+    // constructor for new items before getting db id
+    public PantryItem(String name, String quantity, String unit, String expiryDate) {
+        this(-1, name, quantity, unit, expiryDate);
+    }
+
     public PantryItem(String name, String quantity, String unit) {
-        this(name, quantity, unit, "");
+        this(-1, name, quantity, unit, "");
+    }
+
+    // getters and setters
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getName() {
