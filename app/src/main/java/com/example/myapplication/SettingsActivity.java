@@ -2,6 +2,7 @@ package com.example.myapplication;
 
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -13,6 +14,8 @@ public class SettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_settings);
 
         Button btnSaveSettings = findViewById(R.id.btnSaveSettings);
+        btnSaveSettings.setOnClickListener(v ->
+                Toast.makeText(SettingsActivity.this, "Settings saved", Toast.LENGTH_SHORT).show());
 
         Button btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> finish());
