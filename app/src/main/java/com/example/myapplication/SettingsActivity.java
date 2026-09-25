@@ -10,10 +10,10 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // settings screen layout
         setContentView(R.layout.activity_settings);
 
-        // back button to return home
+        Button btnSaveSettings = findViewById(R.id.btnSaveSettings);
+
         Button btnBack = findViewById(R.id.btnBack);
         btnBack.setOnClickListener(v -> finish());
     }
