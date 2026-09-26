@@ -10,11 +10,16 @@ public class SuggestedRecipesActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        // suggested recipes layout
+        // set layout for recipes screen
         setContentView(R.layout.activity_suggested_recipes);
 
-        // back button to return home
+        // setup bottom navigation bar
+        NavigationHelper.setupNavBar(this, R.id.navRecipes);
+
+        // back button
         Button btnBack = findViewById(R.id.btnBack);
-        btnBack.setOnClickListener(v -> finish());
+        if (btnBack != null) {
+            btnBack.setOnClickListener(v -> finish());
+        }
     }
 }

@@ -7,99 +7,104 @@
     android:background="@color/background"
     android:padding="16dp">
 
-    <!-- Header Title -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Settings"
-        android:textSize="26sp"
-        android:textStyle="bold"
-        android:textColor="@color/primary_dark"
-        android:layout_marginBottom="4dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Manage application preferences and options"
-        android:textSize="14sp"
-        android:textColor="@color/text_secondary"
-        android:layout_marginBottom="16dp" />
-
-    <!-- Preferences Card -->
-    <com.google.android.material.card.MaterialCardView
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="16dp"
-        app:cardCornerRadius="12dp"
-        app:cardElevation="3dp"
-        app:cardBackgroundColor="@color/card_bg">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="16dp">
+            android:orientation="vertical">
+
+            <!-- Header Title -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Settings"
+                android:textSize="26sp"
+                android:textStyle="bold"
+                android:textColor="@color/primary_dark"
+                android:layout_marginBottom="4dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Notifications &amp; Alerts"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="@color/primary_dark"
+                android:text="Manage application preferences and options"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary"
+                android:layout_marginBottom="16dp" />
+
+            <!-- Preferences Card -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                app:cardCornerRadius="12dp"
+                app:cardElevation="3dp"
+                app:cardBackgroundColor="@color/card_bg">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Notifications &amp; Alerts"
+                        android:textSize="16sp"
+                        android:textStyle="bold"
+                        android:textColor="@color/primary_dark"
+                        android:layout_marginBottom="12dp" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switchExpiryAlerts"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Expiry Date Reminders"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary"
+                        android:checked="true"
+                        android:paddingVertical="8dp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:background="#E0E0E0"
+                        android:layout_marginVertical="8dp" />
+
+                    <androidx.appcompat.widget.SwitchCompat
+                        android:id="@+id/switchRecipeSuggestions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Auto Recipe Recommendations"
+                        android:textSize="14sp"
+                        android:textColor="@color/text_primary"
+                        android:checked="true"
+                        android:paddingVertical="8dp" />
+
+                </LinearLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Save Settings Button -->
+            <Button
+                android:id="@+id/btnSaveSettings"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Save Preferences"
+                android:backgroundTint="@color/primary"
+                android:textColor="@color/white"
                 android:layout_marginBottom="12dp" />
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switchExpiryAlerts"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Expiry Date Reminders"
-                android:textSize="14sp"
-                android:textColor="@color/text_primary"
-                android:checked="true"
-                android:paddingVertical="8dp" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#E0E0E0"
-                android:layout_marginVertical="8dp" />
-
-            <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/switchRecipeSuggestions"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Auto Recipe Recommendations"
-                android:textSize="14sp"
-                android:textColor="@color/text_primary"
-                android:checked="true"
-                android:paddingVertical="8dp" />
 
         </LinearLayout>
 
-    </com.google.android.material.card.MaterialCardView>
+    </ScrollView>
 
-    <!-- Save Settings Button -->
-    <Button
-        android:id="@+id/btnSaveSettings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Save Preferences"
-        android:backgroundTint="@color/primary"
-        android:textColor="@color/white"
-        android:layout_marginBottom="12dp" />
-
-    <!-- Spacer -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
-    <!-- Back to Home Button -->
-    <Button
-        android:id="@+id/btnBack"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Back to Home" />
+    <!-- Bottom Navigation Bar -->
+    <include layout="@layout/nav_bar" />
 
 </LinearLayout>
