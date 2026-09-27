@@ -9,13 +9,12 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-// handles the sqlite database setup and crud operations for pantry items
+// handles sqlite database setup and crud operations
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "pantry.db";
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 4;
 
-    // table and column definitions
     public static final String TABLE_PANTRY = "pantry_items";
     public static final String COLUMN_ID = "_id";
     public static final String COLUMN_NAME = "name";
@@ -23,31 +22,150 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     public static final String COLUMN_UNIT = "unit";
     public static final String COLUMN_EXPIRY_DATE = "expiry_date";
 
+    public static final String TABLE_RECIPES = "recipes";
+    public static final String TABLE_RECIPE_INGREDIENTS = "recipe_ingredients";
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // create the pantry table
-        String createTableQuery = "CREATE TABLE " + TABLE_PANTRY + " (" +
+        // create tables for pantry and recipes
+        String createPantryQuery = "CREATE TABLE " + TABLE_PANTRY + " (" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 COLUMN_NAME + " TEXT NOT NULL, " +
                 COLUMN_QUANTITY + " TEXT, " +
                 COLUMN_UNIT + " TEXT, " +
                 COLUMN_EXPIRY_DATE + " TEXT" +
                 ")";
-        db.execSQL(createTableQuery);
+        db.execSQL(createPantryQuery);
+
+        String createRecipesQuery = "CREATE TABLE " + TABLE_RECIPES + " (" +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "name TEXT NOT NULL, " +
+                "prep_time TEXT, " +
+                "method TEXT" +
+                ")";
+        db.execSQL(createRecipesQuery);
+
+        String createRecipeIngQuery = "CREATE TABLE " + TABLE_RECIPE_INGREDIENTS + " (" +
+                "_id INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                "recipe_id INTEGER, " +
+                "ingredient_name TEXT NOT NULL, " +
+                "quantity REAL, " +
+                "unit TEXT" +
+                ")";
+        db.execSQL(createRecipeIngQuery);
+
+        // seed authentic recipes into database
+        seedRecipes(db);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-        // drop table and recreate if db version changes
+        // drop tables and recreate on upgrade
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_PANTRY);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RECIPES);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_RECIPE_INGREDIENTS);
         onCreate(db);
     }
 
-    // add a new item to db
+    // seed recipes and their ingredients
+    private void seedRecipes(SQLiteDatabase db) {
+        addRecipe(db, "Mutton Curry", "45 mins", "Brown onions and garlic in ghee, add curry powder and tomatoes, brown the mutton pieces, add cubed potatoes and water, then simmer slowly until tender.",
+                new String[]{"Mutton", "Potatoes", "Tomatoes", "Onion", "Garlic", "Ginger", "Curry Powder", "Ghee", "Salt"},
+                new double[]{1, 4, 3, 2, 1, 1, 2, 1, 1}, new String[]{"kg", "pcs", "pcs", "pcs", "bulb", "pc", "packs", "jar", "pack"});
+
+        addRecipe(db, "Chicken Curry", "35 mins", "Sauté onions and ginger-garlic paste in ghee, add curry powder and chopped tomatoes, add chicken pieces and potatoes, and simmer until cooked through.",
+                new String[]{"Chicken", "Potatoes", "Tomatoes", "Onion", "Garlic", "Ginger", "Curry Powder", "Ghee", "Salt"},
+                new double[]{1, 3, 3, 2, 1, 1, 2, 1, 1}, new String[]{"kg", "pcs", "pcs", "pcs", "bulb", "pc", "packs", "jar", "pack"});
+
+        addRecipe(db, "Bean Bunny Chow", "30 mins", "Cook sugar beans with curry spices and tomatoes. Hollow out half a loaf of bread and pour the rich bean curry inside.",
+                new String[]{"Sugar Beans", "Bread Loaf", "Onion", "Tomatoes", "Curry Powder", "Ghee", "Garlic", "Salt"},
+                new double[]{1, 1, 2, 2, 1, 1, 1, 1}, new String[]{"kg", "loaf", "pcs", "pcs", "pack", "jar", "bulb", "pack"});
+
+        addRecipe(db, "Mutton Bunny Chow", "50 mins", "Prepare rich mutton curry. Hollow out a fresh bread loaf and fill it to the brim with hot mutton curry.",
+                new String[]{"Mutton", "Bread Loaf", "Potatoes", "Tomatoes", "Onion", "Curry Powder", "Ghee", "Garlic", "Salt"},
+                new double[]{1, 1, 3, 3, 2, 2, 1, 1, 1}, new String[]{"kg", "loaf", "pcs", "pcs", "pcs", "packs", "jar", "bulb", "pack"});
+
+        addRecipe(db, "Chicken Bunny Chow", "40 mins", "Cook spicy chicken curry. Scoop out the center of a bread loaf and fill with chicken curry.",
+                new String[]{"Chicken", "Bread Loaf", "Potatoes", "Tomatoes", "Onion", "Curry Powder", "Ghee", "Garlic", "Salt"},
+                new double[]{1, 1, 3, 3, 2, 2, 1, 1, 1}, new String[]{"kg", "loaf", "pcs", "pcs", "pcs", "packs", "jar", "bulb", "pack"});
+
+        addRecipe(db, "Fish Curry", "25 mins", "Sauté onions and garlic in ghee, add curry powder and tomatoes with tamarind, then gently simmer fish pieces until cooked.",
+                new String[]{"Fish", "Tomatoes", "Onion", "Garlic", "Tamarind", "Curry Powder", "Ghee", "Salt"},
+                new double[]{1, 3, 2, 1, 1, 1, 1, 1}, new String[]{"kg", "pcs", "pcs", "bulb", "pack", "pack", "jar", "pack"});
+
+        addRecipe(db, "Prawn Curry", "30 mins", "Sauté onions and garlic in ghee, add curry powder, tomatoes, and coconut milk, then simmer prawns until pink and tender.",
+                new String[]{"Prawns", "Tomatoes", "Onion", "Garlic", "Ginger", "Curry Powder", "Ghee", "Coconut Milk", "Salt"},
+                new double[]{1, 3, 2, 1, 1, 1, 1, 1, 1}, new String[]{"kg", "pcs", "pcs", "bulb", "pc", "pack", "jar", "pack", "pack"});
+
+        addRecipe(db, "Vegetable Curry", "25 mins", "Sauté onions and garlic in ghee, add curry powder and chopped tomatoes, toss in mixed vegetables and potatoes, and simmer until tender.",
+                new String[]{"Mixed Vegetables", "Potatoes", "Tomatoes", "Onion", "Garlic", "Curry Powder", "Ghee", "Salt"},
+                new double[]{1, 2, 2, 2, 1, 1, 1, 1}, new String[]{"kg", "pcs", "pcs", "pcs", "bulb", "pack", "jar", "pack"});
+
+        addRecipe(db, "Dhal and Rice", "30 mins", "Boil lentils with turmeric and salt, then temper with ghee-fried garlic and onions, served over basmati rice.",
+                new String[]{"Lentils", "Basmati Rice", "Onion", "Garlic", "Turmeric Powder", "Ghee", "Salt"},
+                new double[]{1, 1, 1, 1, 1, 1, 1}, new String[]{"kg", "kg", "pc", "bulb", "pack", "jar", "pack"});
+
+        addRecipe(db, "Beef Biryani", "60 mins", "Marinate beef in spices and curd, layer with partially cooked basmati rice and fried potatoes, seal, and steam-cook on low heat.",
+                new String[]{"Beef", "Basmati Rice", "Potatoes", "Onion", "Tomatoes", "Ghee", "Curd", "Biryani Masala", "Salt"},
+                new double[]{1, 1, 3, 2, 2, 1, 1, 1, 1}, new String[]{"kg", "kg", "pcs", "pcs", "pcs", "jar", "pack", "pack", "pack"});
+
+        addRecipe(db, "Chicken Biryani", "50 mins", "Marinate chicken in spiced curd, layer with aromatic basmati rice, potatoes, and fried onions, then bake or stove-steam until done.",
+                new String[]{"Chicken", "Basmati Rice", "Potatoes", "Onion", "Tomatoes", "Ghee", "Curd", "Biryani Masala", "Salt"},
+                new double[]{1, 1, 3, 2, 2, 1, 1, 1, 1}, new String[]{"kg", "kg", "pcs", "pcs", "pcs", "jar", "pack", "pack", "pack"});
+
+        addRecipe(db, "Roti and Curry", "40 mins", "Cook flavorful mutton curry and serve piping hot with soft flaky homemade rotis.",
+                new String[]{"Mutton", "Roti", "Tomatoes", "Onion", "Curry Powder", "Ghee", "Garlic", "Salt"},
+                new double[]{1, 4, 3, 2, 2, 1, 1, 1}, new String[]{"kg", "pcs", "pcs", "pcs", "packs", "jar", "bulb", "pack"});
+
+        addRecipe(db, "Samp and Beans", "90 mins", "Slowly boil samp and sugar beans together until exceptionally soft and creamy, seasoned with butter or ghee and salt.",
+                new String[]{"Samp", "Sugar Beans", "Onion", "Ghee", "Salt"},
+                new double[]{1, 1, 1, 1, 1}, new String[]{"kg", "kg", "pc", "jar", "pack"});
+
+        addRecipe(db, "Crab Curry", "35 mins", "Sauté onions, garlic, and ginger in ghee, add curry powder and tomatoes, add crab pieces, and simmer in rich gravy.",
+                new String[]{"Crab", "Tomatoes", "Onion", "Garlic", "Ginger", "Curry Powder", "Ghee", "Salt"},
+                new double[]{1, 3, 2, 1, 1, 1, 1, 1}, new String[]{"kg", "pcs", "pcs", "bulb", "pc", "pack", "jar", "pack"});
+
+        addRecipe(db, "Samoosas", "45 mins", "Cook minced meat with onions and spices, fold into triangular pastry sheets, and fry until golden and crispy.",
+                new String[]{"Minced Meat", "Pastry Sheets", "Onion", "Chilli Powder", "Turmeric Powder", "Salt", "Oil"},
+                new double[]{1, 1, 2, 1, 1, 1, 1}, new String[]{"kg", "pack", "pcs", "pack", "pack", "pack", "bottle"});
+
+        addRecipe(db, "Chutney Chicken", "30 mins", "Stew chicken pieces in a thick, tangy tomato and onion chutney gravy infused with chillies.",
+                new String[]{"Chicken", "Tomatoes", "Onion", "Garlic", "Chilli Powder", "Ghee", "Salt"},
+                new double[]{1, 4, 2, 1, 1, 1, 1}, new String[]{"kg", "pcs", "pcs", "bulb", "pack", "jar", "pack"});
+
+        addRecipe(db, "Lamb Trotter Curry", "120 mins", "Slow-cook lamb trotters with rich spices and potatoes until gelatinous, tender, and intensely flavorful.",
+                new String[]{"Lamb Trotters", "Potatoes", "Tomatoes", "Onion", "Garlic", "Curry Powder", "Ghee", "Salt"},
+                new double[]{1, 3, 3, 2, 1, 2, 1, 1}, new String[]{"kg", "pcs", "pcs", "pcs", "bulb", "packs", "jar", "pack"});
+
+        addRecipe(db, "Vegetable Breyani", "60 mins", "Layer spiced mixed vegetables and potatoes with aromatic basmati rice and ghee, slow-cooking until infused with spices.",
+                new String[]{"Mixed Vegetables", "Basmati Rice", "Potatoes", "Onion", "Ghee", "Biryani Masala", "Salt"},
+                new double[]{1, 1, 3, 2, 1, 1, 1}, new String[]{"kg", "kg", "pcs", "pcs", "jar", "pack", "pack"});
+    }
+
+    // helper to insert recipe and ingredients
+    private void addRecipe(SQLiteDatabase db, String name, String prepTime, String method,
+                           String[] ingNames, double[] ingQtys, String[] ingUnits) {
+        ContentValues cv = new ContentValues();
+        cv.put("name", name);
+        cv.put("prep_time", prepTime);
+        cv.put("method", method);
+        long recipeId = db.insert(TABLE_RECIPES, null, cv);
+
+        for (int i = 0; i < ingNames.length; i++) {
+            ContentValues icv = new ContentValues();
+            icv.put("recipe_id", recipeId);
+            icv.put("ingredient_name", ingNames[i]);
+            icv.put("quantity", ingQtys[i]);
+            icv.put("unit", ingUnits[i]);
+            db.insert(TABLE_RECIPE_INGREDIENTS, null, icv);
+        }
+    }
+
+    // add a new pantry item
     public long addPantryItem(PantryItem item) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -61,7 +179,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    // fetch all saved items from database
+    // fetch all pantry items from database
     public List<PantryItem> getAllPantryItems() {
         List<PantryItem> itemList = new ArrayList<>();
         SQLiteDatabase db = this.getReadableDatabase();
@@ -69,7 +187,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String selectQuery = "SELECT * FROM " + TABLE_PANTRY + " ORDER BY " + COLUMN_ID + " ASC";
         Cursor cursor = db.rawQuery(selectQuery, null);
 
-        // loop through cursor rows and populate list
         if (cursor.moveToFirst()) {
             int idIndex = cursor.getColumnIndexOrThrow(COLUMN_ID);
             int nameIndex = cursor.getColumnIndexOrThrow(COLUMN_NAME);
@@ -93,7 +210,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return itemList;
     }
 
-    // update existing item by id
+    // update pantry item
     public int updatePantryItem(PantryItem item) {
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
@@ -106,10 +223,117 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[]{String.valueOf(item.getId())});
     }
 
-    // remove item from db by id
+    // delete pantry item by id
     public int deletePantryItem(long id) {
         SQLiteDatabase db = this.getWritableDatabase();
         return db.delete(TABLE_PANTRY, COLUMN_ID + " = ?",
                 new String[]{String.valueOf(id)});
+    }
+
+    // get all recipes from database
+    public List<Recipe> getAllRecipes() {
+        List<Recipe> recipes = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_RECIPES, null);
+
+        if (cursor.moveToFirst()) {
+            int idIdx = cursor.getColumnIndexOrThrow("_id");
+            int nameIdx = cursor.getColumnIndexOrThrow("name");
+            int prepIdx = cursor.getColumnIndexOrThrow("prep_time");
+            int methodIdx = cursor.getColumnIndexOrThrow("method");
+
+            do {
+                long id = cursor.getLong(idIdx);
+                String name = cursor.getString(nameIdx);
+                String prepTime = cursor.getString(prepIdx);
+                String method = cursor.getString(methodIdx);
+
+                List<RecipeIngredient> ingredients = getIngredientsForRecipe(db, id);
+                recipes.add(new Recipe(id, name, ingredients, method, prepTime));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return recipes;
+    }
+
+    // get ingredients for a recipe
+    private List<RecipeIngredient> getIngredientsForRecipe(SQLiteDatabase db, long recipeId) {
+        List<RecipeIngredient> ingredients = new ArrayList<>();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_RECIPE_INGREDIENTS + " WHERE recipe_id = ?", new String[]{String.valueOf(recipeId)});
+        if (cursor.moveToFirst()) {
+            int nameIdx = cursor.getColumnIndexOrThrow("ingredient_name");
+            int qtyIdx = cursor.getColumnIndexOrThrow("quantity");
+            int unitIdx = cursor.getColumnIndexOrThrow("unit");
+
+            do {
+                String name = cursor.getString(nameIdx);
+                double qty = cursor.getDouble(qtyIdx);
+                String unit = cursor.getString(unitIdx);
+                ingredients.add(new RecipeIngredient(name, qty, unit));
+            } while (cursor.moveToNext());
+        }
+        cursor.close();
+        return ingredients;
+    }
+
+    // strict matching rule logic
+    public List<Recipe> getStrictMatchingRecipes(List<PantryItem> pantryItems) {
+        List<Recipe> allRecipes = getAllRecipes();
+        List<Recipe> matchedRecipes = new ArrayList<>();
+
+        for (Recipe recipe : allRecipes) {
+            boolean allIngredientsPresent = true;
+
+            for (RecipeIngredient req : recipe.getIngredients()) {
+                boolean foundAndSufficient = false;
+
+                for (PantryItem pantry : pantryItems) {
+                    if (isIngredientMatch(pantry.getName(), req.getName())) {
+                        double pantryQty = parseQuantity(pantry.getQuantity());
+                        if (pantryQty >= req.getQuantity()) {
+                            foundAndSufficient = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (!foundAndSufficient) {
+                    allIngredientsPresent = false;
+                    break;
+                }
+            }
+
+            if (allIngredientsPresent) {
+                matchedRecipes.add(recipe);
+            }
+        }
+
+        return matchedRecipes;
+    }
+
+    // helper to match ingredient names robustly
+    private boolean isIngredientMatch(String pantryName, String recipeName) {
+        if (pantryName == null || recipeName == null) return false;
+        String p = pantryName.trim().toLowerCase();
+        String r = recipeName.trim().toLowerCase();
+
+        if (p.equals(r)) return true;
+
+        if (p.endsWith("s") && p.substring(0, p.length() - 1).equals(r)) return true;
+        if (r.endsWith("s") && r.substring(0, r.length() - 1).equals(p)) return true;
+        if (p.endsWith("es") && p.substring(0, p.length() - 2).equals(r)) return true;
+        if (r.endsWith("es") && r.substring(0, r.length() - 2).equals(p)) return true;
+
+        return false;
+    }
+
+    // parse quantity string to double safely
+    private double parseQuantity(String qtyStr) {
+        if (qtyStr == null) return 1.0;
+        try {
+            return Double.parseDouble(qtyStr.trim());
+        } catch (NumberFormatException e) {
+            return 1.0;
+        }
     }
 }

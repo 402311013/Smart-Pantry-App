@@ -24,6 +24,7 @@
 
         <activity android:name=".PantryActivity" />
         <activity android:name=".SuggestedRecipesActivity" />
+        <activity android:name=".RecipeDetailActivity" />
         <activity android:name=".SettingsActivity" />
     </application>
 
