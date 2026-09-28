@@ -24,7 +24,7 @@ public class PantryActivity extends AppCompatActivity {
     private List<PantryItem> pantryList;
     private PantryAdapter adapter;
     private DatabaseHelper dbHelper;
-    private TextView tvPantryCount;
+    private TextView txtItemCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +39,8 @@ public class PantryActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         pantryList = dbHelper.getAllPantryItems();
 
-        tvPantryCount = findViewById(R.id.tvPantryCount);
-        updatePantryCount();
+        txtItemCount = findViewById(R.id.txtItemCount);
+        updateItemCount();
 
         // setup recycler view for ingredients
         RecyclerView rvPantryList = findViewById(R.id.rvPantryList);
@@ -60,7 +60,7 @@ public class PantryActivity extends AppCompatActivity {
                 dbHelper.deletePantryItem(itemToDelete.getId());
                 pantryList.remove(position);
                 adapter.notifyItemRemoved(position);
-                updatePantryCount();
+                updateItemCount();
                 Toast.makeText(PantryActivity.this, "Item deleted", Toast.LENGTH_SHORT).show();
             }
         });
@@ -79,10 +79,10 @@ public class PantryActivity extends AppCompatActivity {
         }
     }
 
-    // update pantry item count text
-    private void updatePantryCount() {
-        if (tvPantryCount != null && pantryList != null) {
-            tvPantryCount.setText("Total items: " + pantryList.size());
+    // update item count display card
+    private void updateItemCount() {
+        if (txtItemCount != null && pantryList != null) {
+            txtItemCount.setText(String.valueOf(pantryList.size()));
         }
     }
 
@@ -166,7 +166,7 @@ public class PantryActivity extends AppCompatActivity {
                 dbHelper.addPantryItem(newItem);
                 pantryList.add(newItem);
                 adapter.notifyItemInserted(pantryList.size() - 1);
-                updatePantryCount();
+                updateItemCount();
                 Toast.makeText(this, "Added " + name, Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Please enter ingredient name", Toast.LENGTH_SHORT).show();
