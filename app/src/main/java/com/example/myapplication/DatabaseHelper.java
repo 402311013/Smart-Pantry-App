@@ -13,7 +13,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "pantry.db";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 16;
 
     public static final String TABLE_PANTRY = "pantry_items";
     public static final String COLUMN_ID = "_id";
@@ -58,6 +58,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 ")";
         db.execSQL(createRecipeIngQuery);
 
+        // pre populate pantry with ingredients matching local recipes
+        insertInitialPantryItems(db);
+
         // seed authentic recipes into database
         seedRecipes(db);
     }
@@ -71,8 +74,62 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    private void insertInitialPantryItems(SQLiteDatabase db) {
+        insertPantryDirect(db, "Mutton", "2", "kg", "2025-12-31");
+        insertPantryDirect(db, "Chicken", "2", "kg", "2025-12-31");
+        insertPantryDirect(db, "Bread Loaf", "2", "loaf", "2025-12-31");
+        insertPantryDirect(db, "Potatoes", "10", "pcs", "2025-12-31");
+        insertPantryDirect(db, "Tomatoes", "10", "pcs", "2025-12-31");
+        insertPantryDirect(db, "Onion", "5", "pcs", "2025-12-31");
+        insertPantryDirect(db, "Garlic", "3", "bulb", "2025-12-31");
+        insertPantryDirect(db, "Ginger", "2", "pc", "2025-12-31");
+        insertPantryDirect(db, "Curry Powder", "5", "packs", "2026-06-30");
+        insertPantryDirect(db, "Ghee", "3", "jar", "2026-06-30");
+        insertPantryDirect(db, "Salt", "2", "pack", "2027-01-01");
+        insertPantryDirect(db, "Sugar Beans", "2", "kg", "2026-06-30");
+        insertPantryDirect(db, "Basmati Rice", "5", "kg", "2026-06-30");
+        insertPantryDirect(db, "Lentils", "2", "kg", "2026-06-30");
+        insertPantryDirect(db, "Mixed Vegetables", "3", "kg", "2025-12-31");
+        insertPantryDirect(db, "Curd", "2", "pack", "2025-12-31");
+        insertPantryDirect(db, "Biryani Masala", "3", "pack", "2026-06-30");
+        insertPantryDirect(db, "Roti", "10", "pcs", "2025-12-31");
+        insertPantryDirect(db, "Samp", "2", "kg", "2026-06-30");
+        insertPantryDirect(db, "Crab", "2", "kg", "2025-12-31");
+        insertPantryDirect(db, "Minced Meat", "2", "kg", "2025-12-31");
+        insertPantryDirect(db, "Pastry Sheets", "3", "pack", "2025-12-31");
+        insertPantryDirect(db, "Oil", "2", "bottle", "2026-06-30");
+        insertPantryDirect(db, "Banana", "5", "pcs", "2025-12-31");
+        insertPantryDirect(db, "Milk", "2", "litre", "2025-12-31");
+        insertPantryDirect(db, "Sugar", "1", "kg", "2027-01-01");
+        insertPantryDirect(db, "Avocado", "3", "pcs", "2025-12-31");
+        insertPantryDirect(db, "Cheese", "2", "pack", "2025-12-31");
+        insertPantryDirect(db, "Butter", "2", "block", "2025-12-31");
+        insertPantryDirect(db, "Chilli", "10", "pcs", "2025-12-31");
+    }
+
+    private void insertPantryDirect(SQLiteDatabase db, String name, String qty, String unit, String expiry) {
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_NAME, name);
+        values.put(COLUMN_QUANTITY, qty);
+        values.put(COLUMN_UNIT, unit);
+        values.put(COLUMN_EXPIRY_DATE, expiry);
+        db.insert(TABLE_PANTRY, null, values);
+    }
+
     // seed recipes and their ingredients
     private void seedRecipes(SQLiteDatabase db) {
+        addRecipe(db, "Cheese Toast", "10 mins", "Slice the tomatoes and onions thinly, slice fresh chillies. Place cheese and the tomato, onion, and chilli slices between bread slices, butter the outside, and toast in a pan until golden and crispy.",
+                new String[]{"Bread Loaf", "Cheese", "Tomatoes", "Onion", "Chilli", "Butter"},
+                new double[]{1, 1, 2, 1, 2, 1}, new String[]{"loaf", "pack", "pcs", "pcs", "pcs", "block"});
+
+        addRecipe(db, "Avocado Sandwich", "5 mins", "Slice the avocado in half, remove the pit, scoop it into a bowl, and mash it up. Add three teaspoons of sugar and mix together until slightly lumpy. Spread the mixture onto bread to make a sandwich, slice it, and it is ready.",
+                new String[]{"Avocado", "Sugar", "Bread Loaf"},
+                new double[]{1, 3, 1}, new String[]{"pcs", "tsp", "loaf"});
+
+        addRecipe(db, "Banana Milk", "5 mins", "Slice the banana into pieces, add one teaspoon of sugar, put it into a tumbler, and mix for 1 minute until ready.",
+                new String[]{"Banana", "Milk", "Sugar"},
+                new double[]{2, 1, 2}, new String[]{"pcs", "litre", "tsp"});
+
         addRecipe(db, "Mutton Curry", "45 mins", "Brown onions and garlic in ghee, add curry powder and tomatoes, brown the mutton pieces, add cubed potatoes and water, then simmer slowly until tender.",
                 new String[]{"Mutton", "Potatoes", "Tomatoes", "Onion", "Garlic", "Ginger", "Curry Powder", "Ghee", "Salt"},
                 new double[]{1, 4, 3, 2, 1, 1, 2, 1, 1}, new String[]{"kg", "pcs", "pcs", "pcs", "bulb", "pc", "packs", "jar", "pack"});
@@ -109,10 +166,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new String[]{"Lentils", "Basmati Rice", "Onion", "Garlic", "Turmeric Powder", "Ghee", "Salt"},
                 new double[]{1, 1, 1, 1, 1, 1, 1}, new String[]{"kg", "kg", "pc", "bulb", "pack", "jar", "pack"});
 
-        addRecipe(db, "Beef Biryani", "60 mins", "Marinate beef in spices and curd, layer with partially cooked basmati rice and fried potatoes, seal, and steam-cook on low heat.",
-                new String[]{"Beef", "Basmati Rice", "Potatoes", "Onion", "Tomatoes", "Ghee", "Curd", "Biryani Masala", "Salt"},
-                new double[]{1, 1, 3, 2, 2, 1, 1, 1, 1}, new String[]{"kg", "kg", "pcs", "pcs", "pcs", "jar", "pack", "pack", "pack"});
-
         addRecipe(db, "Chicken Biryani", "50 mins", "Marinate chicken in spiced curd, layer with aromatic basmati rice, potatoes, and fried onions, then bake or stove-steam until done.",
                 new String[]{"Chicken", "Basmati Rice", "Potatoes", "Onion", "Tomatoes", "Ghee", "Curd", "Biryani Masala", "Salt"},
                 new double[]{1, 1, 3, 2, 2, 1, 1, 1, 1}, new String[]{"kg", "kg", "pcs", "pcs", "pcs", "jar", "pack", "pack", "pack"});
@@ -136,14 +189,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         addRecipe(db, "Chutney Chicken", "30 mins", "Stew chicken pieces in a thick, tangy tomato and onion chutney gravy infused with chillies.",
                 new String[]{"Chicken", "Tomatoes", "Onion", "Garlic", "Chilli Powder", "Ghee", "Salt"},
                 new double[]{1, 4, 2, 1, 1, 1, 1}, new String[]{"kg", "pcs", "pcs", "bulb", "pack", "jar", "pack"});
-
-        addRecipe(db, "Lamb Trotter Curry", "120 mins", "Slow-cook lamb trotters with rich spices and potatoes until gelatinous, tender, and intensely flavorful.",
-                new String[]{"Lamb Trotters", "Potatoes", "Tomatoes", "Onion", "Garlic", "Curry Powder", "Ghee", "Salt"},
-                new double[]{1, 3, 3, 2, 1, 2, 1, 1}, new String[]{"kg", "pcs", "pcs", "pcs", "bulb", "packs", "jar", "pack"});
-
-        addRecipe(db, "Vegetable Breyani", "60 mins", "Layer spiced mixed vegetables and potatoes with aromatic basmati rice and ghee, slow-cooking until infused with spices.",
-                new String[]{"Mixed Vegetables", "Basmati Rice", "Potatoes", "Onion", "Ghee", "Biryani Masala", "Salt"},
-                new double[]{1, 1, 3, 2, 1, 1, 1}, new String[]{"kg", "kg", "pcs", "pcs", "jar", "pack", "pack"});
     }
 
     // helper to insert recipe and ingredients

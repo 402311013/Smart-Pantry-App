@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -23,7 +24,7 @@ public class PantryActivity extends AppCompatActivity {
     private List<PantryItem> pantryList;
     private PantryAdapter adapter;
     private DatabaseHelper dbHelper;
-    private TextView txtItemCount;
+    private TextView tvPantryCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,8 +39,8 @@ public class PantryActivity extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         pantryList = dbHelper.getAllPantryItems();
 
-        txtItemCount = findViewById(R.id.txtItemCount);
-        updateItemCount();
+        tvPantryCount = findViewById(R.id.tvPantryCount);
+        updatePantryCount();
 
         // setup recycler view for ingredients
         RecyclerView rvPantryList = findViewById(R.id.rvPantryList);
@@ -59,7 +60,7 @@ public class PantryActivity extends AppCompatActivity {
                 dbHelper.deletePantryItem(itemToDelete.getId());
                 pantryList.remove(position);
                 adapter.notifyItemRemoved(position);
-                updateItemCount();
+                updatePantryCount();
                 Toast.makeText(PantryActivity.this, "Item deleted", Toast.LENGTH_SHORT).show();
             }
         });
@@ -71,17 +72,55 @@ public class PantryActivity extends AppCompatActivity {
             btnAddItem.setOnClickListener(v -> showAddDialog());
         }
 
-        // back button
-        Button btnBack = findViewById(R.id.btnBack);
-        if (btnBack != null) {
-            btnBack.setOnClickListener(v -> finish());
+        // sort button
+        Button btnSort = findViewById(R.id.btnSort);
+        if (btnSort != null) {
+            btnSort.setOnClickListener(v -> showSortDialog());
         }
     }
 
-    // update item count display
-    private void updateItemCount() {
-        if (txtItemCount != null && pantryList != null) {
-            txtItemCount.setText(String.valueOf(pantryList.size()));
+    // update pantry item count text
+    private void updatePantryCount() {
+        if (tvPantryCount != null && pantryList != null) {
+            tvPantryCount.setText("Total items: " + pantryList.size());
+        }
+    }
+
+    // show sort options dialog
+    private void showSortDialog() {
+        String[] options = {"Name (A-Z)", "Expiry Date", "Quantity"};
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Sort Pantry By");
+        builder.setItems(options, (dialog, which) -> {
+            if (which == 0) {
+                Collections.sort(pantryList, (a, b) -> a.getName().compareToIgnoreCase(b.getName()));
+                Toast.makeText(this, "Sorted by name", Toast.LENGTH_SHORT).show();
+            } else if (which == 1) {
+                Collections.sort(pantryList, (a, b) -> {
+                    String d1 = TextUtils.isEmpty(a.getExpiryDate()) ? "9999-99-99" : a.getExpiryDate();
+                    String d2 = TextUtils.isEmpty(b.getExpiryDate()) ? "9999-99-99" : b.getExpiryDate();
+                    return d1.compareTo(d2);
+                });
+                Toast.makeText(this, "Sorted by expiry date", Toast.LENGTH_SHORT).show();
+            } else if (which == 2) {
+                Collections.sort(pantryList, (a, b) -> {
+                    double q1 = parseQty(a.getQuantity());
+                    double q2 = parseQty(b.getQuantity());
+                    return Double.compare(q2, q1); // highest first
+                });
+                Toast.makeText(this, "Sorted by quantity", Toast.LENGTH_SHORT).show();
+            }
+            adapter.notifyDataSetChanged();
+        });
+        builder.show();
+    }
+
+    // helper to parse quantity
+    private double parseQty(String qty) {
+        try {
+            return Double.parseDouble(qty.trim());
+        } catch (Exception e) {
+            return 0.0;
         }
     }
 
@@ -127,7 +166,7 @@ public class PantryActivity extends AppCompatActivity {
                 dbHelper.addPantryItem(newItem);
                 pantryList.add(newItem);
                 adapter.notifyItemInserted(pantryList.size() - 1);
-                updateItemCount();
+                updatePantryCount();
                 Toast.makeText(this, "Added " + name, Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Please enter ingredient name", Toast.LENGTH_SHORT).show();

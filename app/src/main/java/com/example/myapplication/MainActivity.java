@@ -13,7 +13,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private DatabaseHelper dbHelper;
-    private TextView txtItemCount;
+    private TextView txtItemCount, txtRecipeCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnSettings = findViewById(R.id.btnSettings);
         Button btnViewRecipe = findViewById(R.id.btnViewRecipe);
         txtItemCount = findViewById(R.id.txtItemCount);
+        txtRecipeCount = findViewById(R.id.txtRecipeCount);
 
         // open pantry screen
         if (btnPantry != null) {
@@ -66,10 +67,16 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // update pantry item count from database
-        if (dbHelper != null && txtItemCount != null) {
-            List<PantryItem> items = dbHelper.getAllPantryItems();
-            txtItemCount.setText(String.valueOf(items.size()));
+        // update pantry item count and recipe count from database
+        if (dbHelper != null) {
+            if (txtItemCount != null) {
+                List<PantryItem> items = dbHelper.getAllPantryItems();
+                txtItemCount.setText(String.valueOf(items.size()));
+            }
+            if (txtRecipeCount != null) {
+                List<Recipe> recipes = dbHelper.getAllRecipes();
+                txtRecipeCount.setText(String.valueOf(recipes.size()));
+            }
         }
     }
 }
