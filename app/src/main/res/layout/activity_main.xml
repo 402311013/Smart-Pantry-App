@@ -69,7 +69,7 @@
                         android:id="@+id/txtItemCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="12"
+                        android:text="0"
                         android:textStyle="bold"
                         android:textSize="35sp"
                         android:textColor="#4CAF50" />
@@ -101,7 +101,7 @@
                         android:id="@+id/txtRecipeCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="5"
+                        android:text="0"
                         android:textColor="#4CAF50"
                         android:textSize="35sp"
                         android:textStyle="bold" />
@@ -149,9 +149,10 @@
                 android:layout_marginTop="20dp" />
 
             <TextView
+                android:id="@+id/tvExpiringSoon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="• Milk - 2 days left • Bread - Today • Tomatoes - 1 day left"
+                android:text="No expiry dates set for pantry items"
                 android:textSize="16sp"
                 android:layout_marginTop="8dp" />
 

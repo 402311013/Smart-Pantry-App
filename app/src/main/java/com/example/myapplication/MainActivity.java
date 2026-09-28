@@ -13,7 +13,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private DatabaseHelper dbHelper;
-    private TextView txtItemCount, txtRecipeCount;
+    private TextView txtItemCount, txtRecipeCount, tvExpiringSoon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +34,7 @@ public class MainActivity extends AppCompatActivity {
         Button btnViewRecipe = findViewById(R.id.btnViewRecipe);
         txtItemCount = findViewById(R.id.txtItemCount);
         txtRecipeCount = findViewById(R.id.txtRecipeCount);
+        tvExpiringSoon = findViewById(R.id.tvExpiringSoon);
 
         // open pantry screen
         if (btnPantry != null) {
@@ -67,15 +68,36 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        // update pantry item count and recipe count from database
+        // update dashboard counts and expiring items dynamically from database
         if (dbHelper != null) {
+            List<PantryItem> items = dbHelper.getAllPantryItems();
+
             if (txtItemCount != null) {
-                List<PantryItem> items = dbHelper.getAllPantryItems();
                 txtItemCount.setText(String.valueOf(items.size()));
             }
+
             if (txtRecipeCount != null) {
-                List<Recipe> recipes = dbHelper.getAllRecipes();
-                txtRecipeCount.setText(String.valueOf(recipes.size()));
+                List<Recipe> matchingRecipes = dbHelper.getStrictMatchingRecipes(items);
+                txtRecipeCount.setText(String.valueOf(matchingRecipes.size()));
+            }
+
+            if (tvExpiringSoon != null) {
+                StringBuilder sb = new StringBuilder();
+                boolean hasExpiring = false;
+                for (PantryItem item : items) {
+                    if (item.getExpiryDate() != null && !item.getExpiryDate().isEmpty()) {
+                        if (hasExpiring) {
+                            sb.append(" • ");
+                        }
+                        sb.append(item.getName()).append(" (").append(item.getExpiryDate()).append(")");
+                        hasExpiring = true;
+                    }
+                }
+                if (hasExpiring) {
+                    tvExpiringSoon.setText(sb.toString());
+                } else {
+                    tvExpiringSoon.setText("No expiry dates set for pantry items");
+                }
             }
         }
     }
