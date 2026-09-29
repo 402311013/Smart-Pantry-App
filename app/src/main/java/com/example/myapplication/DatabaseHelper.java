@@ -119,7 +119,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     // seed recipes and their ingredients
     private void seedRecipes(SQLiteDatabase db) {
         addRecipe(db, "Cheese Toast", "10 mins", "Slice the tomatoes and onions thinly, slice fresh chillies. Place cheese and the tomato, onion, and chilli slices between bread slices, butter the outside, and toast in a pan until golden and crispy.",
-                new String[]{"Bread Loaf", "Cheese", "Tomatoes", "Onion", "Chilli", "Butter"},
+                new String[]{"Bread", "Cheese", "Tomatoes", "Onion", "Chilli", "Butter"},
                 new double[]{1, 1, 2, 1, 2, 1}, new String[]{"loaf", "pack", "pcs", "pcs", "pcs", "block"});
 
         addRecipe(db, "Avocado Sandwich", "5 mins", "Slice the avocado in half, remove the pit, scoop it into a bowl, and mash it up. Add three teaspoons of sugar and mix together until slightly lumpy. Spread the mixture onto bread to make a sandwich, slice it, and it is ready.",
@@ -143,11 +143,11 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new double[]{1, 1, 2, 2, 1, 1, 1, 1}, new String[]{"kg", "loaf", "pcs", "pcs", "pack", "jar", "bulb", "pack"});
 
         addRecipe(db, "Mutton Bunny Chow", "50 mins", "Prepare rich mutton curry. Hollow out a fresh bread loaf and fill it to the brim with hot mutton curry.",
-                new String[]{"Mutton", "Bread Loaf", "Potatoes", "Tomatoes", "Onion", "Curry Powder", "Ghee", "Garlic", "Salt"},
+                new String[]{"Mutton", "Bread", "Potatoes", "Tomatoes", "Onion", "Curry Powder", "Ghee", "Garlic", "Salt"},
                 new double[]{1, 1, 3, 3, 2, 2, 1, 1, 1}, new String[]{"kg", "loaf", "pcs", "pcs", "pcs", "packs", "jar", "bulb", "pack"});
 
         addRecipe(db, "Chicken Bunny Chow", "40 mins", "Cook spicy chicken curry. Scoop out the center of a bread loaf and fill with chicken curry.",
-                new String[]{"Chicken", "Bread Loaf", "Potatoes", "Tomatoes", "Onion", "Curry Powder", "Ghee", "Garlic", "Salt"},
+                new String[]{"Chicken", "Bread", "Potatoes", "Tomatoes", "Onion", "Curry Powder", "Ghee", "Garlic", "Salt"},
                 new double[]{1, 1, 3, 3, 2, 2, 1, 1, 1}, new String[]{"kg", "loaf", "pcs", "pcs", "pcs", "packs", "jar", "bulb", "pack"});
 
         addRecipe(db, "Fish Curry", "25 mins", "Sauté onions and garlic in ghee, add curry powder and tomatoes with tamarind, then gently simmer fish pieces until cooked.",
@@ -461,6 +461,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         String r = normalizeIngredientString(recipeName);
 
         if (p.equals(r)) return true;
+
+        if (p.contains(r) || r.contains(p)) return true;
 
         // check standard plural suffixes (-s, -es, -ies)
         if (p.endsWith("ies") && (p.substring(0, p.length() - 3) + "y").equals(r)) return true;

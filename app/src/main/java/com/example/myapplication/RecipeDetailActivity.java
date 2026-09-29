@@ -31,7 +31,7 @@ public class RecipeDetailActivity extends AppCompatActivity {
         if (name != null) tvTitle.setText(name);
         if (prepTime != null) tvPrepTime.setText("Prep Time: " + prepTime);
         if (missing != null && !missing.trim().isEmpty()) {
-            tvMissing.setText("Missing: " + missing);
+            tvMissing.setText(missing);
             tvMissing.setVisibility(View.VISIBLE);
         } else {
             tvMissing.setVisibility(View.GONE);
