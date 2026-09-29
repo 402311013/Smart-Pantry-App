@@ -3,52 +3,117 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/background">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/background"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:paddingHorizontal="18dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="8dp">
 
         <!-- Header Title -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Suggested Recipes"
-            android:textSize="26sp"
+            android:textSize="24sp"
             android:textStyle="bold"
-            android:textColor="@color/primary_dark"
-            android:layout_marginBottom="4dp" />
+            android:textColor="@color/text_primary" />
 
         <TextView
+            android:id="@+id/tvSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:text="Strictly matching your current pantry items"
-            android:textSize="14sp"
-            android:textColor="@color/text_secondary"
-            android:layout_marginBottom="16dp" />
+            android:textSize="13sp"
+            android:textColor="@color/text_secondary" />
+
+        <!-- Segmented Tab Controls: Strict Matches vs Almost There -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="14dp"
+            android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_badge_neutral"
+            android:padding="4dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTabStrict"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Strict (0)"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:cornerRadius="10dp"
+                app:backgroundTint="@color/primary"
+                android:textColor="@color/white"
+                app:elevation="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/btnTabAlmostThere"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:text="Almost There (0)"
+                android:textAllCaps="false"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                app:cornerRadius="10dp"
+                app:backgroundTint="@android:color/transparent"
+                android:textColor="@color/text_primary"
+                app:elevation="0dp"
+                android:insetTop="0dp"
+                android:insetBottom="0dp" />
+
+        </LinearLayout>
 
         <!-- Feedback message when zero recipes match -->
-        <TextView
-            android:id="@+id/tvNoRecipes"
+        <LinearLayout
+            android:id="@+id/tvNoRecipesContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="No recipes match your pantry yet - add more ingredients"
-            android:textSize="16sp"
-            android:textColor="@color/text_secondary"
+            android:orientation="vertical"
             android:gravity="center"
-            android:padding="32dp"
-            android:visibility="gone" />
+            android:padding="32dp">
+
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:src="@drawable/ic_restaurant"
+                android:contentDescription="No Recipes"
+                app:tint="@color/text_muted" />
+
+            <TextView
+                android:id="@+id/tvNoRecipes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:text="No recipes match your pantry yet - add more ingredients"
+                android:textSize="14sp"
+                android:textColor="@color/text_secondary"
+                android:gravity="center"
+                android:lineSpacingExtra="2dp"
+                android:visibility="gone" />
+        </LinearLayout>
 
         <!-- Recipe RecyclerView -->
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvRecipes"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false" />
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:paddingTop="2dp" />
 
     </LinearLayout>
 

@@ -19,8 +19,10 @@ public class SettingsActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // set layout for settings activity
         setContentView(R.layout.activity_settings);
 
+        // setup bottom navigation bar
         NavigationHelper.setupNavBar(this, R.id.navSettings);
 
         switchExpiryAlerts = findViewById(R.id.switchExpiryAlerts);
@@ -34,6 +36,7 @@ public class SettingsActivity extends AppCompatActivity {
         if (switchExpiryAlerts != null) switchExpiryAlerts.setChecked(expiryAlertsOn);
         if (switchRecipeSuggestions != null) switchRecipeSuggestions.setChecked(recipeSuggestionsOn);
 
+        // save preferences button click listener
         Button btnSaveSettings = findViewById(R.id.btnSaveSettings);
         if (btnSaveSettings != null) {
             btnSaveSettings.setOnClickListener(v -> {

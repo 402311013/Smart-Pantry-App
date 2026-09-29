@@ -3,199 +3,367 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/background">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#F5F7FA">
+        android:fillViewport="true"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:paddingHorizontal="18dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="24dp">
 
-            <!-- Header -->
-            <TextView
-                android:id="@+id/txtWelcome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Welcome Back"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:textColor="#2E7D32" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Smart Pantry Manager"
-                android:textSize="28sp"
-                android:textStyle="bold"
-                android:textColor="#000000"
-                android:layout_marginTop="5dp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Reduce food waste and cook smarter"
-                android:textColor="#666666"
-                android:layout_marginBottom="20dp" />
-
-            <!-- Pantry Card -->
-            <androidx.cardview.widget.CardView
-                android:id="@+id/btnPantry"
+            <!-- Hero Header Banner -->
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:clickable="true"
-                android:focusable="true"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_hero_gradient"
+                android:padding="20dp"
+                android:elevation="3dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:text="Pantry Items"
-                        android:textSize="20sp" />
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/txtItemCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textStyle="bold"
-                        android:textSize="35sp"
-                        android:textColor="#4CAF50" />
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="SMART PANTRY"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:letterSpacing="0.08"
+                            android:textColor="#A7F3D0" />
+
+                        <TextView
+                            android:id="@+id/txtWelcome"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="Zero-Waste Cooking"
+                            android:textSize="22sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/white" />
+                    </LinearLayout>
+
+                    <ImageView
+                        android:layout_width="36dp"
+                        android:layout_height="36dp"
+                        android:src="@drawable/ic_sparkle"
+                        android:contentDescription="Sparkle"
+                        app:tint="#FDE68A" />
                 </LinearLayout>
 
-            </androidx.cardview.widget.CardView>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:text="Track home ingredients &amp; cook delicious meals with zero missing items."
+                    android:textSize="13sp"
+                    android:textColor="#E6F4EA"
+                    android:lineSpacingExtra="2dp" />
 
-            <!-- Recipe Card -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="120dp"
-                android:layout_marginTop="12dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+            </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Recipes Available"
-                        android:textSize="20sp" />
-
-                    <TextView
-                        android:id="@+id/txtRecipeCount"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0"
-                        android:textColor="#4CAF50"
-                        android:textSize="35sp"
-                        android:textStyle="bold" />
-                </LinearLayout>
-
-            </androidx.cardview.widget.CardView>
-
-            <!-- Add Ingredient Button -->
-            <Button
-                android:id="@+id/btnAddIngredient"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="Add Ingredient"
-                android:textAllCaps="false"
-                android:backgroundTint="#4CAF50" />
-
-            <!-- Suggested Recipes Button -->
-            <Button
-                android:id="@+id/btnRecipes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Suggested Recipes"
-                android:textAllCaps="false"
-                android:backgroundTint="#2E7D32" />
-
-            <!-- Settings Button -->
-            <Button
-                android:id="@+id/btnSettings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="Settings"
-                android:textAllCaps="false"
-                android:backgroundTint="#757575" />
-
-            <!-- Expiring Soon -->
+            <!-- Statistics Section (Two side-by-side cards) -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Expiring Soon"
-                android:textSize="20sp"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="10dp"
+                android:text="Overview"
+                android:textSize="17sp"
                 android:textStyle="bold"
-                android:layout_marginTop="20dp" />
+                android:textColor="@color/text_primary" />
 
-            <TextView
-                android:id="@+id/tvExpiringSoon"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="No expiry dates set for pantry items"
-                android:textSize="16sp"
-                android:layout_marginTop="8dp" />
+                android:orientation="horizontal"
+                android:baselineAligned="false">
 
-            <!-- Featured Recipe -->
+                <!-- Pantry Count Card -->
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/btnPantry"
+                    android:layout_width="0dp"
+                    android:layout_height="124dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:foreground="?attr/selectableItemBackground"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:background="@drawable/bg_stat_emerald"
+                        android:padding="14dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:src="@drawable/ic_nav_pantry"
+                            android:contentDescription="Pantry"
+                            app:tint="@color/primary" />
+
+                        <TextView
+                            android:id="@+id/txtItemCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="0"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/primary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Pantry Items"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/primary_text" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <!-- Ready Recipes Count Card -->
+                <androidx.cardview.widget.CardView
+                    android:layout_width="0dp"
+                    android:layout_height="124dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="0dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical"
+                        android:background="@drawable/bg_stat_amber"
+                        android:padding="14dp"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="22dp"
+                            android:layout_height="22dp"
+                            android:src="@drawable/ic_restaurant"
+                            android:contentDescription="Recipes"
+                            app:tint="@color/secondary" />
+
+                        <TextView
+                            android:id="@+id/txtRecipeCount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:text="0"
+                            android:textSize="28sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/secondary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Ready Recipes"
+                            android:textSize="12sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/secondary_dark" />
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
+
+            <!-- Quick Actions Buttons -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:orientation="horizontal">
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnAddIngredient"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:layout_marginEnd="6dp"
+                    android:text="Add Item"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:icon="@drawable/ic_add"
+                    app:iconGravity="textStart"
+                    app:cornerRadius="14dp"
+                    app:backgroundTint="@color/primary"
+                    app:elevation="2dp" />
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btnRecipes"
+                    android:layout_width="0dp"
+                    android:layout_height="52dp"
+                    android:layout_weight="1"
+                    android:layout_marginStart="6dp"
+                    android:text="Suggestions"
+                    android:textAllCaps="false"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    app:icon="@drawable/ic_restaurant"
+                    app:iconGravity="textStart"
+                    app:cornerRadius="14dp"
+                    app:backgroundTint="@color/primary_dark"
+                    app:elevation="2dp" />
+
+            </LinearLayout>
+
+            <!-- Expiring Soon Notice Card -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="4dp">
+                android:layout_marginTop="18dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="1dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
+                    android:background="@drawable/bg_card_white"
                     android:padding="16dp">
 
-                    <TextView
-                        android:layout_width="wrap_content"
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="Recipe You Can Make Now"
-                        android:textStyle="bold"
-                        android:textSize="18sp" />
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_warning_amber"
+                            android:contentDescription="Alert"
+                            app:tint="@color/warning" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Expiry Alerts"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary" />
+                    </LinearLayout>
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tvExpiringSoon"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
-                        android:text=""
-                        android:textSize="22sp" />
-
-                    <Button
-                        android:id="@+id/btnViewRecipe"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="View Recipe"
-                        android:layout_marginTop="10dp" />
+                        android:text="No expiry dates set for pantry items"
+                        android:textSize="13sp"
+                        android:textColor="@color/text_secondary"
+                        android:lineSpacingExtra="2dp" />
                 </LinearLayout>
+            </androidx.cardview.widget.CardView>
 
+            <!-- Featured / Explore Section -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                app:cardCornerRadius="16dp"
+                app:cardElevation="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:background="@drawable/bg_card_white"
+                    android:padding="16dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="center_vertical">
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/ic_sparkle"
+                            android:contentDescription="Cooking Guide"
+                            app:tint="@color/primary" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:text="Ready To Cook?"
+                            android:textSize="15sp"
+                            android:textStyle="bold"
+                            android:textColor="@color/text_primary" />
+                    </LinearLayout>
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="Browse recipes verified to match 100% of your pantry items in stock."
+                        android:textSize="13sp"
+                        android:textColor="@color/text_secondary" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:orientation="horizontal">
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnViewRecipe"
+                            android:layout_width="0dp"
+                            android:layout_height="46dp"
+                            android:layout_weight="1"
+                            android:text="View Suggested Recipes"
+                            android:textAllCaps="false"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            app:cornerRadius="12dp"
+                            app:backgroundTint="@color/primary" />
+
+                        <com.google.android.material.button.MaterialButton
+                            android:id="@+id/btnSettings"
+                            android:layout_width="wrap_content"
+                            android:layout_height="46dp"
+                            android:layout_marginStart="8dp"
+                            android:text="Settings"
+                            android:textAllCaps="false"
+                            android:textSize="13sp"
+                            style="@style/Widget.Material3.Button.OutlinedButton"
+                            app:cornerRadius="12dp"
+                            app:strokeColor="@color/border_color"
+                            android:textColor="@color/text_primary" />
+                    </LinearLayout>
+                </LinearLayout>
             </androidx.cardview.widget.CardView>
 
         </LinearLayout>
-
     </ScrollView>
 
     <!-- Bottom Navigation Bar -->

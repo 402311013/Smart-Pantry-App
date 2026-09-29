@@ -63,7 +63,7 @@ public class NavigationHelper {
                 ImageView icon = (ImageView) ((ViewGroup) tab).getChildAt(0);
                 TextView label = (TextView) ((ViewGroup) tab).getChildAt(1);
                 boolean isActive = (id == activeId);
-                int color = isActive ? Color.parseColor("#2E7D32") : Color.parseColor("#757575");
+                int color = isActive ? Color.parseColor("#15803D") : Color.parseColor("#94A3B8");
                 if (icon != null) icon.setColorFilter(color);
                 if (label != null) {
                     label.setTextColor(color);

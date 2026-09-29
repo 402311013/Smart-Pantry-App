@@ -13,7 +13,7 @@ import java.util.List;
 public class DatabaseHelper extends SQLiteOpenHelper {
 
     private static final String DATABASE_NAME = "pantry.db";
-    private static final int DATABASE_VERSION = 16;
+    private static final int DATABASE_VERSION = 17;
 
     public static final String TABLE_PANTRY = "pantry_items";
     public static final String COLUMN_ID = "_id";
@@ -75,36 +75,36 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     }
 
     private void insertInitialPantryItems(SQLiteDatabase db) {
-        insertPantryDirect(db, "Mutton", "2", "kg", "2025-12-31");
-        insertPantryDirect(db, "Chicken", "2", "kg", "2025-12-31");
-        insertPantryDirect(db, "Bread Loaf", "2", "loaf", "2025-12-31");
-        insertPantryDirect(db, "Potatoes", "10", "pcs", "2025-12-31");
-        insertPantryDirect(db, "Tomatoes", "10", "pcs", "2025-12-31");
-        insertPantryDirect(db, "Onion", "5", "pcs", "2025-12-31");
-        insertPantryDirect(db, "Garlic", "3", "bulb", "2025-12-31");
-        insertPantryDirect(db, "Ginger", "2", "pc", "2025-12-31");
-        insertPantryDirect(db, "Curry Powder", "5", "packs", "2026-06-30");
-        insertPantryDirect(db, "Ghee", "3", "jar", "2026-06-30");
-        insertPantryDirect(db, "Salt", "2", "pack", "2027-01-01");
-        insertPantryDirect(db, "Sugar Beans", "2", "kg", "2026-06-30");
-        insertPantryDirect(db, "Basmati Rice", "5", "kg", "2026-06-30");
-        insertPantryDirect(db, "Lentils", "2", "kg", "2026-06-30");
-        insertPantryDirect(db, "Mixed Vegetables", "3", "kg", "2025-12-31");
-        insertPantryDirect(db, "Curd", "2", "pack", "2025-12-31");
-        insertPantryDirect(db, "Biryani Masala", "3", "pack", "2026-06-30");
-        insertPantryDirect(db, "Roti", "10", "pcs", "2025-12-31");
-        insertPantryDirect(db, "Samp", "2", "kg", "2026-06-30");
-        insertPantryDirect(db, "Crab", "2", "kg", "2025-12-31");
-        insertPantryDirect(db, "Minced Meat", "2", "kg", "2025-12-31");
-        insertPantryDirect(db, "Pastry Sheets", "3", "pack", "2025-12-31");
-        insertPantryDirect(db, "Oil", "2", "bottle", "2026-06-30");
-        insertPantryDirect(db, "Banana", "5", "pcs", "2025-12-31");
-        insertPantryDirect(db, "Milk", "2", "litre", "2025-12-31");
-        insertPantryDirect(db, "Sugar", "1", "kg", "2027-01-01");
-        insertPantryDirect(db, "Avocado", "3", "pcs", "2025-12-31");
-        insertPantryDirect(db, "Cheese", "2", "pack", "2025-12-31");
-        insertPantryDirect(db, "Butter", "2", "block", "2025-12-31");
-        insertPantryDirect(db, "Chilli", "10", "pcs", "2025-12-31");
+        insertPantryDirect(db, "Mutton", "2", "kg", "2028-12-31");
+        insertPantryDirect(db, "Chicken", "2", "kg", "2028-12-31");
+        insertPantryDirect(db, "Bread", "2", "loaf", "2026-09-31");
+        insertPantryDirect(db, "Potatoes", "10", "pcs", "2028-12-31");
+        insertPantryDirect(db, "Tomatoes", "10", "pcs", "2026-10-04");
+        insertPantryDirect(db, "Onion", "5", "pcs", "2028-12-31");
+        insertPantryDirect(db, "Garlic", "3", "bulb", "2028-12-31");
+        insertPantryDirect(db, "Ginger", "2", "pc", "2028-12-31");
+        insertPantryDirect(db, "Curry Powder", "5", "packs", "2026-10-30");
+        insertPantryDirect(db, "Ghee", "3", "jar", "2028-06-30");
+        insertPantryDirect(db, "Salt", "2", "pack", "2029-01-01");
+        insertPantryDirect(db, "Sugar Beans", "2", "kg", "2028-06-30");
+        insertPantryDirect(db, "Basmati Rice", "5", "kg", "2028-06-30");
+        insertPantryDirect(db, "Lentils", "2", "kg", "2028-06-30");
+        insertPantryDirect(db, "Mixed Vegetables", "3", "kg", "2028-12-31");
+        insertPantryDirect(db, "Curd", "2", "pack", "2028-12-31");
+        insertPantryDirect(db, "Biryani Masala", "3", "pack", "2028-06-30");
+        insertPantryDirect(db, "Roti", "10", "pcs", "2028-12-31");
+        insertPantryDirect(db, "Samp", "2", "kg", "2028-06-30");
+        insertPantryDirect(db, "Crab", "2", "kg", "2028-12-31");
+        insertPantryDirect(db, "Minced Meat", "2", "kg", "2028-12-31");
+        insertPantryDirect(db, "Pastry Sheets", "3", "pack", "2026-08-31");
+        insertPantryDirect(db, "Oil", "2", "bottle", "2028-06-30");
+        insertPantryDirect(db, "Banana", "5", "pcs", "2028-12-31");
+        insertPantryDirect(db, "Milk", "2", "litre", "2028-12-31");
+        insertPantryDirect(db, "Sugar", "1", "kg", "2029-01-01");
+        insertPantryDirect(db, "Avocado", "3", "pcs", "2028-12-31");
+        insertPantryDirect(db, "Cheese", "2", "pack", "2028-12-31");
+        insertPantryDirect(db, "Butter", "2", "block", "2028-12-31");
+        insertPantryDirect(db, "Chilli", "10", "pcs", "2028-12-31");
     }
 
     private void insertPantryDirect(SQLiteDatabase db, String name, String qty, String unit, String expiry) {
@@ -123,7 +123,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
                 new double[]{1, 1, 2, 1, 2, 1}, new String[]{"loaf", "pack", "pcs", "pcs", "pcs", "block"});
 
         addRecipe(db, "Avocado Sandwich", "5 mins", "Slice the avocado in half, remove the pit, scoop it into a bowl, and mash it up. Add three teaspoons of sugar and mix together until slightly lumpy. Spread the mixture onto bread to make a sandwich, slice it, and it is ready.",
-                new String[]{"Avocado", "Sugar", "Bread Loaf"},
+                new String[]{"Avocado", "Sugar", "Bread"},
                 new double[]{1, 3, 1}, new String[]{"pcs", "tsp", "loaf"});
 
         addRecipe(db, "Banana Milk", "5 mins", "Slice the banana into pieces, add one teaspoon of sugar, put it into a tumbler, and mix for 1 minute until ready.",
@@ -321,7 +321,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return ingredients;
     }
 
-    // strict matching rule logic
+    // strict matching rule logic: returns recipes where 100% of required ingredients are present in sufficient quantities
     public List<Recipe> getStrictMatchingRecipes(List<PantryItem> pantryItems) {
         List<Recipe> allRecipes = getAllRecipes();
         List<Recipe> matchedRecipes = new ArrayList<>();
@@ -330,19 +330,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             boolean allIngredientsPresent = true;
 
             for (RecipeIngredient req : recipe.getIngredients()) {
-                boolean foundAndSufficient = false;
-
-                for (PantryItem pantry : pantryItems) {
-                    if (isIngredientMatch(pantry.getName(), req.getName())) {
-                        double pantryQty = parseQuantity(pantry.getQuantity());
-                        if (pantryQty >= req.getQuantity()) {
-                            foundAndSufficient = true;
-                            break;
-                        }
-                    }
-                }
-
-                if (!foundAndSufficient) {
+                double available = getAvailableQuantity(pantryItems, req.getName(), req.getUnit());
+                if (available < req.getQuantity()) {
                     allIngredientsPresent = false;
                     break;
                 }
@@ -356,29 +345,154 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return matchedRecipes;
     }
 
-    // helper to match ingredient names robustly
-    private boolean isIngredientMatch(String pantryName, String recipeName) {
+    // almost there recipes: returns recipes missing EXACTLY 1 ingredient (optional stretch bonus feature)
+    public List<Recipe> getAlmostThereRecipes(List<PantryItem> pantryItems) {
+        List<Recipe> allRecipes = getAllRecipes();
+        List<Recipe> almostThereRecipes = new ArrayList<>();
+
+        for (Recipe recipe : allRecipes) {
+            int missingCount = 0;
+            String missingDetail = "";
+
+            for (RecipeIngredient req : recipe.getIngredients()) {
+                double available = getAvailableQuantity(pantryItems, req.getName(), req.getUnit());
+                if (available < req.getQuantity()) {
+                    missingCount++;
+                    double deficit = req.getQuantity() - available;
+                    if (available <= 0) {
+                        missingDetail = "Missing: " + formatQuantity(req.getQuantity()) + " " + req.getUnit() + " " + req.getName();
+                    } else {
+                        missingDetail = "Need " + formatQuantity(deficit) + " more " + req.getUnit() + " " + req.getName() + " (have " + formatQuantity(available) + ")";
+                    }
+                }
+            }
+
+            // strictly only include recipes missing exactly 1 ingredient
+            if (missingCount == 1) {
+                Recipe almostRecipe = new Recipe(recipe.getId(), recipe.getName(), recipe.getIngredients(),
+                        recipe.getMethod(), recipe.getPrepTime(), missingDetail);
+                almostThereRecipes.add(almostRecipe);
+            }
+        }
+
+        return almostThereRecipes;
+    }
+
+    // calculate total available quantity across duplicate pantry items with unit conversion (excluding expired items)
+    public double getAvailableQuantity(List<PantryItem> pantryItems, String requiredIngredientName, String requiredUnit) {
+        if (pantryItems == null || requiredIngredientName == null) return 0.0;
+        double totalAvailable = 0.0;
+
+        for (PantryItem pantry : pantryItems) {
+            // exclude expired pantry items from recipe ingredient matching
+            if (isExpired(pantry.getExpiryDate())) {
+                continue;
+            }
+
+            if (isIngredientMatch(pantry.getName(), requiredIngredientName)) {
+                double pantryQty = parseQuantity(pantry.getQuantity());
+                double convertedQty = convertUnitQuantity(pantryQty, pantry.getUnit(), requiredUnit);
+                totalAvailable += convertedQty;
+            }
+        }
+
+        return totalAvailable;
+    }
+
+    // check if an expiry date is in the past (expired before today)
+    public boolean isExpired(String expiryDateStr) {
+        if (expiryDateStr == null || expiryDateStr.trim().isEmpty()) return false;
+        try {
+            java.text.SimpleDateFormat sdf = new java.text.SimpleDateFormat("yyyy-MM-dd", java.util.Locale.getDefault());
+            java.util.Date expiryDate = sdf.parse(expiryDateStr.trim());
+            if (expiryDate == null) return false;
+
+            java.util.Calendar today = java.util.Calendar.getInstance();
+            today.set(java.util.Calendar.HOUR_OF_DAY, 0);
+            today.set(java.util.Calendar.MINUTE, 0);
+            today.set(java.util.Calendar.SECOND, 0);
+            today.set(java.util.Calendar.MILLISECOND, 0);
+
+            java.util.Calendar expCal = java.util.Calendar.getInstance();
+            expCal.setTime(expiryDate);
+            expCal.set(java.util.Calendar.HOUR_OF_DAY, 0);
+            expCal.set(java.util.Calendar.MINUTE, 0);
+            expCal.set(java.util.Calendar.SECOND, 0);
+            expCal.set(java.util.Calendar.MILLISECOND, 0);
+
+            return expCal.before(today);
+        } catch (Exception e) {
+            return false;
+        }
+    }
+
+    // helper to convert between compatible units (e.g. kg <-> g, litre <-> ml)
+    public double convertUnitQuantity(double qty, String fromUnit, String toUnit) {
+        if (fromUnit == null || toUnit == null) return qty;
+        String from = fromUnit.trim().toLowerCase();
+        String to = toUnit.trim().toLowerCase();
+
+        // normalize plural units
+        if (from.endsWith("s")) from = from.substring(0, from.length() - 1);
+        if (to.endsWith("s")) to = to.substring(0, to.length() - 1);
+
+        if (from.equals(to)) return qty;
+
+        // mass conversions: kg <-> g
+        if (from.equals("kg") && to.equals("g")) return qty * 1000.0;
+        if (from.equals("g") && to.equals("kg")) return qty / 1000.0;
+
+        // volume conversions: litre / l <-> ml
+        if ((from.equals("litre") || from.equals("liter") || from.equals("l")) && to.equals("ml")) return qty * 1000.0;
+        if (from.equals("ml") && (to.equals("litre") || to.equals("liter") || to.equals("l"))) return qty / 1000.0;
+
+        // spoon conversions: tbsp <-> tsp
+        if (from.equals("tbsp") && to.equals("tsp")) return qty * 3.0;
+        if (from.equals("tsp") && to.equals("tbsp")) return qty / 3.0;
+
+        // default: if units are unconvertible or custom (e.g. pcs, pack, can), treat numerical quantity directly
+        return qty;
+    }
+
+    // helper to match ingredient names robustly with singular/plural and case folding
+    public boolean isIngredientMatch(String pantryName, String recipeName) {
         if (pantryName == null || recipeName == null) return false;
-        String p = pantryName.trim().toLowerCase();
-        String r = recipeName.trim().toLowerCase();
+        String p = normalizeIngredientString(pantryName);
+        String r = normalizeIngredientString(recipeName);
 
         if (p.equals(r)) return true;
 
-        if (p.endsWith("s") && p.substring(0, p.length() - 1).equals(r)) return true;
-        if (r.endsWith("s") && r.substring(0, r.length() - 1).equals(p)) return true;
+        // check standard plural suffixes (-s, -es, -ies)
+        if (p.endsWith("ies") && (p.substring(0, p.length() - 3) + "y").equals(r)) return true;
+        if (r.endsWith("ies") && (r.substring(0, r.length() - 3) + "y").equals(p)) return true;
         if (p.endsWith("es") && p.substring(0, p.length() - 2).equals(r)) return true;
         if (r.endsWith("es") && r.substring(0, r.length() - 2).equals(p)) return true;
+        if (p.endsWith("s") && p.substring(0, p.length() - 1).equals(r)) return true;
+        if (r.endsWith("s") && r.substring(0, r.length() - 1).equals(p)) return true;
 
         return false;
     }
 
+    private String normalizeIngredientString(String name) {
+        return name.trim().toLowerCase().replaceAll("\\s+", " ");
+    }
+
     // parse quantity string to double safely
-    private double parseQuantity(String qtyStr) {
+    public double parseQuantity(String qtyStr) {
         if (qtyStr == null) return 1.0;
         try {
             return Double.parseDouble(qtyStr.trim());
         } catch (NumberFormatException e) {
             return 1.0;
+        }
+    }
+
+    // format decimal quantity cleanly (e.g. 1.0 -> "1", 1.5 -> "1.5")
+    public String formatQuantity(double qty) {
+        if (qty == (long) qty) {
+            return String.format(java.util.Locale.getDefault(), "%d", (long) qty);
+        } else {
+            return String.format(java.util.Locale.getDefault(), "%.1f", qty);
         }
     }
 }

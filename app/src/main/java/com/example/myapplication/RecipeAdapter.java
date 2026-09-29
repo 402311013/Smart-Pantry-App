@@ -48,6 +48,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
         }
         holder.tvIngredients.setText(sb.toString());
 
+        // show missing ingredient notice for almost there recipes
+        if (recipe.getMissingIngredientSummary() != null && !recipe.getMissingIngredientSummary().trim().isEmpty()) {
+            holder.tvMissingIngredient.setText("⚠️ " + recipe.getMissingIngredientSummary());
+            holder.tvMissingIngredient.setVisibility(View.VISIBLE);
+        } else {
+            holder.tvMissingIngredient.setVisibility(View.GONE);
+        }
+
         holder.itemView.setOnClickListener(v -> {
             if (listener != null) {
                 listener.onRecipeClick(recipe);
@@ -61,13 +69,14 @@ public class RecipeAdapter extends RecyclerView.Adapter<RecipeAdapter.ViewHolder
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvName, tvPrepTime, tvIngredients;
+        TextView tvName, tvPrepTime, tvIngredients, tvMissingIngredient;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvRecipeName);
             tvPrepTime = itemView.findViewById(R.id.tvRecipePrepTime);
             tvIngredients = itemView.findViewById(R.id.tvRecipeIngredients);
+            tvMissingIngredient = itemView.findViewById(R.id.tvMissingIngredient);
         }
     }
 }

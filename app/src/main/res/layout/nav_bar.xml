@@ -2,11 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="60dp"
+    android:layout_height="64dp"
     android:orientation="horizontal"
-    android:background="#FFFFFF"
-    android:elevation="8dp"
+    android:background="@color/surface"
+    android:elevation="12dp"
     android:gravity="center"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp"
     android:baselineAligned="false"
     android:weightSum="4">
 
@@ -23,19 +25,20 @@
         android:focusable="true">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@android:drawable/ic_menu_myplaces"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/ic_nav_home"
             android:contentDescription="Home"
-            app:tint="#2E7D32" />
+            app:tint="@color/nav_active" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:text="Home"
-            android:textSize="12sp"
+            android:textSize="11sp"
             android:textStyle="bold"
-            android:textColor="#2E7D32" />
+            android:textColor="@color/nav_active" />
     </LinearLayout>
 
     <!-- Pantry Tab -->
@@ -51,18 +54,19 @@
         android:focusable="true">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@android:drawable/ic_menu_agenda"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/ic_nav_pantry"
             android:contentDescription="Pantry"
-            app:tint="#757575" />
+            app:tint="@color/nav_inactive" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:text="Pantry"
-            android:textSize="12sp"
-            android:textColor="#757575" />
+            android:textSize="11sp"
+            android:textColor="@color/nav_inactive" />
     </LinearLayout>
 
     <!-- Recipes Tab -->
@@ -78,18 +82,19 @@
         android:focusable="true">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@android:drawable/ic_menu_slideshow"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/ic_nav_recipes"
             android:contentDescription="Recipes"
-            app:tint="#757575" />
+            app:tint="@color/nav_inactive" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:text="Recipes"
-            android:textSize="12sp"
-            android:textColor="#757575" />
+            android:textSize="11sp"
+            android:textColor="@color/nav_inactive" />
     </LinearLayout>
 
     <!-- Settings Tab -->
@@ -105,18 +110,19 @@
         android:focusable="true">
 
         <ImageView
-            android:layout_width="24dp"
-            android:layout_height="24dp"
-            android:src="@android:drawable/ic_menu_manage"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:src="@drawable/ic_nav_settings"
             android:contentDescription="Settings"
-            app:tint="#757575" />
+            app:tint="@color/nav_inactive" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:text="Settings"
-            android:textSize="12sp"
-            android:textColor="#757575" />
+            android:textSize="11sp"
+            android:textColor="@color/nav_inactive" />
     </LinearLayout>
 
 </LinearLayout>

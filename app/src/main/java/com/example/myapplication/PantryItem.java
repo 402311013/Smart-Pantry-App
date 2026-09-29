@@ -66,4 +66,20 @@ public class PantryItem {
     public void setExpiryDate(String expiryDate) {
         this.expiryDate = expiryDate;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PantryItem that = (PantryItem) o;
+        if (id > 0 && that.id > 0) {
+            return id == that.id;
+        }
+        return name != null && name.equalsIgnoreCase(that.name);
+    }
+
+    @Override
+    public int hashCode() {
+        return id > 0 ? Long.hashCode(id) : (name != null ? name.toLowerCase().hashCode() : 0);
+    }
 }

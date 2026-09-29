@@ -8,6 +8,7 @@ public class Recipe {
     private List<RecipeIngredient> ingredients;
     private String method;
     private String prepTime;
+    private String missingIngredientSummary;
 
     public Recipe(long id, String name, List<RecipeIngredient> ingredients, String method, String prepTime) {
         this.id = id;
@@ -15,6 +16,16 @@ public class Recipe {
         this.ingredients = ingredients;
         this.method = method;
         this.prepTime = prepTime;
+        this.missingIngredientSummary = "";
+    }
+
+    public Recipe(long id, String name, List<RecipeIngredient> ingredients, String method, String prepTime, String missingIngredientSummary) {
+        this.id = id;
+        this.name = name;
+        this.ingredients = ingredients;
+        this.method = method;
+        this.prepTime = prepTime;
+        this.missingIngredientSummary = missingIngredientSummary;
     }
 
     public long getId() {
@@ -35,5 +46,13 @@ public class Recipe {
 
     public String getPrepTime() {
         return prepTime;
+    }
+
+    public String getMissingIngredientSummary() {
+        return missingIngredientSummary;
+    }
+
+    public void setMissingIngredientSummary(String missingIngredientSummary) {
+        this.missingIngredientSummary = missingIngredientSummary;
     }
 }
